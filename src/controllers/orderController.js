@@ -3,6 +3,7 @@ import SKU from "../models/SKU.js"
 import Customer from "../models/Customer.js"
 import {io} from "../../server.js"
 import User from "../models/User.js"
+import Summary from "../models/Summary.js";
 
 // Helper function to generate order ID
 async function generateOrderId() {
@@ -86,6 +87,11 @@ export const createOrder = async (req, res) => {
 // Get All Orders (for all users - admin only)
 export const getAllOrders = async (req, res) => {
   try {
+    // Check if the user has admin role
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: "Access denied. Admins only." });
+    }
+
     const orders = await Order.find()
       .populate(['customer', 'sku'])
       .sort({ createdAt: -1 });
@@ -106,5 +112,19 @@ export const getUserOrders = async (req, res) => {
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const getSummary = async (req, res) => {
+  try {
+    // Check if the user has admin role
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: "Access denied. Admins only." });
+    }
+
+    const summaries = await Summary.find().sort({ timestamp: -1 }).limit(24); // Fetch last 24 summaries
+    res.json(summaries);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
   }
 };

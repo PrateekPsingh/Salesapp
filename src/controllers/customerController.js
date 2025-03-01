@@ -1,8 +1,6 @@
 import Customer from "../models/Customer.js";
 
-// @desc Create a new customer
-// @route POST /api/customers
-// @access Private (Authenticated Users Only)
+
 export const createCustomer = async (req, res) => {
   try {
     const { name, address } = req.body;
@@ -22,7 +20,7 @@ export const createCustomer = async (req, res) => {
     }
 
     const newCustomer = new Customer({
-      // Removed customer_id logic
+      
       name,
       address,
       createdBy: req.user.id
@@ -39,9 +37,7 @@ export const createCustomer = async (req, res) => {
   }
 };
 
-// @desc Get all customers for logged-in user
-// @route GET /api/customers
-// @access Private
+
 export const getCustomers = async (req, res) => {
   try {
     const customers = await Customer.find({ createdBy: req.user.id })

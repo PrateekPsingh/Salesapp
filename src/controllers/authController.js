@@ -11,8 +11,6 @@ const generateToken = (userId, role) => {
   });
 };
 
-// @desc Signup User
-// @route POST /api/auth/signup
 export const signup = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -28,8 +26,7 @@ export const signup = async (req, res) => {
   }
 };
 
-// @desc Login User
-// @route POST /api/auth/login
+
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;

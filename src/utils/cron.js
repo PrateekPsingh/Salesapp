@@ -1,9 +1,10 @@
 import cron from 'node-cron';
-import Order from '../models/Order.js'; // Import your Order model
-import { io } from '../../server.js'; // Import the Socket.IO instance
+import Order from '../models/Order.js';
+import { io } from '../../server.js'; 
+import Summary from '../models/Summary.js';
 
 // Schedule a cron job to run every hour
-cron.schedule('0 * * * *', async () => { // Changed to run at the start of every hour
+cron.schedule('0 * * * *', async () => { 
   try {
     // Calculate the total sum of the `total_amount` field for all orders
     const result = await Order.aggregate([
@@ -26,6 +27,10 @@ cron.schedule('0 * * * *', async () => { // Changed to run at the start of every
       total_amount: totalAmount,
       timestamp: new Date().toISOString(),
     };
+     
+
+    const savedSummary = await Summary.create(summary);
+    console.log('Hourly summary saved to database:', savedSummary);
 
     // Emit the summary to all connected Socket.IO clients
     io.emit('hourly_summary', summary);

@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 app.use("/api/auth", authRoutes);
-app.use("/api/sku", skuRoutes);
+app.use("/api/skus", skuRoutes);
 app.use("/api/customer", customerRoutes);
 app.use("/api/orders", orderRoutes);
 
