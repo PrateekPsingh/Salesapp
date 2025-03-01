@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/skus", skuRoutes);
-app.use("/api/customer", customerRoutes);
+app.use("/api/customers", customerRoutes);
 app.use("/api/orders", orderRoutes);
 
 // Create HTTP server
