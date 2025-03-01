@@ -14,12 +14,12 @@ const CustomerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: "User", 
     required: true 
-  }, // User who created this customer
+  },
   createdAt: { 
     type: Date, 
     default: Date.now 
   }
 });
 
-const customer = mongoose.model("Customer", CustomerSchema);
-export default customer;
+const Customer = mongoose.model("Customer", CustomerSchema);
+export default Customer;

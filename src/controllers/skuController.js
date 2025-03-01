@@ -6,6 +6,12 @@ export const createSku = async (req, res) => {
     const { sku_name, unit_of_measurement, tax_rate } = req.body;
     const userId = req.user.id; // Extracted from token
 
+    const existingSku = await SKU.findOne({ sku_name, createdBy: userId });
+
+    if (existingSku) {
+      return res.status(400).json({ message: "SKU with this name already exists for the user" });
+    }
+
     const newSku = await SKU.create({ sku_name, unit_of_measurement, tax_rate, createdBy: userId });
 
     res.status(201).json(newSku);
