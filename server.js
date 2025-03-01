@@ -8,6 +8,8 @@ import authRoutes from "./src/routes/authRoutes.js";
 import skuRoutes from "./src/routes/skuRoutes.js";
 import customerRoutes from "./src/routes/customerRoutes.js";
 import orderRoutes from "./src/routes/orderRoutes.js";
+import './src/utils/cron.js'; 
+
 
 // Load environment variables
 dotenv.config();
@@ -52,6 +54,7 @@ io.on("connection", (socket) => {
 
 // Export Socket.IO instance for use in other files
 export { io };
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
